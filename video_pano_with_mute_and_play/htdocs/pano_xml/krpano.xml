@@ -1,0 +1,72 @@
+﻿<krpano>
+	<include url="../pano_xml/showtext.xml"/>
+
+
+	<!-- grid preview pano -->
+	<preview type="grid(cube,64,64,512,0xCCCCCC,0xF6F6F6,0x999999);" />
+
+	<!-- view/fov settings -->
+	<view hlookat="0" vlookat="0" fovtype="VFOV" fov="90" fovmin="30" fovmax="150" />
+
+
+	<!--if video muted, then play video automatic-->
+
+
+	<plugin name="video"
+		url.html5="../plugins/videoplayer.js"
+		url.flash="../plugins/videoplayer.swf"
+		videourl="../pano_bilder/video-1920x960.mp4|../pano_bilder/video-1024x512.webm"
+		posterurl="../pano_bilder/video-1920x960-poster.jpg"
+		panovideo="true"
+		loop="true"
+		volume="0.5"
+		pausedonstart="false"
+		muted="false"
+		playbackrate="0.5"
+
+	/>
+
+	<image hfov="360" vfov="180">
+		<sphere url="plugin:video"/>
+	</image>
+
+
+	<plugin name="bntvideoplay"
+			align="center"
+			url="../pano_icon/playicon.png"
+			width="150"
+			zorder="2"
+			height="150"
+			onclick="set(plugin[bntvideostop].visible,true);set(plugin[bntvideoplay].visible,false);plugin[video].play());"
+	/>
+
+
+	<plugin name="bntvideostop"
+			align="center"
+			url="../pano_icon/stopicon.png"
+			zorder="1"
+			width="150"
+			height="150"
+			onclick="set(plugin[bntvideoplay].visible,true);set(plugin[bntvideostop].visible,false);plugin[video].pause());"
+	/>
+
+
+	<plugin name="bntviedeomuted"
+			align="lefttop"
+			url="../pano_icon/muted.png"
+			height="50"
+			width="50"
+			onclick="set(plugin[bntvideovolume].visible,true);set(plugin[bntviedeomuted].visible,false);set(plugin[video].volume,0);"
+	/>
+
+	<plugin name="bntvideovolume"
+			align="lefttop"
+			url="../pano_icon/volumeicon.png"
+			height="50"
+			width="50"
+			visible="false"
+			onclick="set(plugin[bntviedeomuted].visible,true);set(plugin[bntvideovolume].visible,false);set(plugin[video].volume,1);"
+
+	/>
+
+</krpano>
