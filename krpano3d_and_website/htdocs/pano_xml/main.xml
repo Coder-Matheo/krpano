@@ -1,0 +1,335 @@
+﻿<krpano>
+
+	<include url="../plugins/showtext.xml"/>
+	<!-- grid preview pano -->
+	<!--<preview type="grid(cube,64,64,512,0xCCCCCC,0xF6F6F6,0x999999);" />-->
+
+	<!-- view/fov settings -->
+	<view hlookat="0" vlookat="0" fovtype="VFOV" fov="90" fovmin="30" fovmax="150" />
+
+	<image>
+		<sphere url="../pano_bilder/Sky.jpg" alpha="0.3"/>
+	</image>
+	<!--<image>
+		<sphere url="../pano_bilder/natur.jpg" alpha="0.1"/>
+	</image>-->
+
+	<layer name="connectionscene"
+		   type="container"
+		   width="100%"
+		   x="0"
+		   y="0"
+		   visible="true"
+		   onhover="showtext(here);"
+	>
+		<layer name="insta"
+				url="../pano_bilder/InstagramIcon.png"
+				height="30"
+				width="30"
+				onclick="openurl('https://www.instagram.com/', _blank);"
+		/>
+		<layer name="twitt"
+				url="../pano_bilder/twitterIcon.png"
+				height="30"
+				width="30"
+			   	x="50"
+				onclick="openurl('https://twitter.com/home', _blank);"
+		/>
+		<layer name="facebook"
+				url="../pano_bilder/FacebookIcon.png"
+				height="30"
+				width="30"
+				x="100"
+				onclick="openurl(https://www.facebook.com/, _blank);"
+		/>
+	</layer>
+
+	<layer name="bntmenubar"
+		   url="../pano_bilder/btnmenu.png"
+		   width="1000"
+		   height="10"
+		   x="269"
+		   y="0"
+		   onclick="showtext(here!!!);
+		   			set(layer[menuscreen].height,0);
+					set(layer[Home].height,0);
+					set(layer[Product].height,0);
+					set(layer[Connection].height,0);
+					set(layer[bntmenubar].y,0);
+					set(plugin[mainscreen].y,20);
+					set(plugin[mainscreen].height,600);"
+
+		   onover="showtext(onover);
+		   			set(layer[menuscreen].height,70);
+					set(layer[Home].height,30);
+					set(layer[Product].height,30);
+					set(layer[Connection].height,30);
+					set(layer[bntmenubar].y,70);
+					set(plugin[mainscreen].y,150);
+					set(plugin[mainscreen].height,470);"
+
+	/>
+
+	<layer name="menuscreen"
+			type="text"
+			html=""
+			visible="true"
+			alpha="0.3"
+			zorder="2"
+			width="1000"
+			height="0"
+			y="0"
+			x="270"
+	>
+		<layer name="Home"
+			   url="../pano_bilder/homeicon.png"
+			   width="30"
+			   height="0"
+			   padding="5"
+			   align="left"
+			   alpha="2"
+			   onhover="showtext(Home);"
+		/>
+		<layer name="Product"
+			   url="../pano_bilder/producticon.png"
+			   width="30"
+			   height="0"
+			   padding="5"
+			   align="center"
+			   alpha="2"
+			   onhover="showtext(Product);"
+
+		/>
+		<layer name="Connection"
+			   url="../pano_bilder/connecticon.png"
+			   width="30"
+			   height="0"
+			   padding="5"
+			   align="right"
+			   alpha="2"
+			   onhover="showtext(Connect);"
+		/>
+
+	</layer>
+
+
+	<layer name="mainscreen"
+		   type="text"
+		   html="data:htmltext"
+		   css="data:cssstyle"
+		   visible="true"
+		   alpha="0.3"
+		   zorder="1"
+		   width="1000"
+		   height="600"
+		   y="20"
+		   x="270"
+	>
+
+		<layer name="bntnextup"
+			   url="../pano_bilder/closeicon.png"
+			   height="25"
+			   width="25"
+			   visible="true"
+			   align="rightbottom"
+			   onhover="showtext(Nextup);"
+			   onclick="showtext(Next);
+						set(layer[mainscreen].width,1000);
+						set(layer[mainscreen].height,23);
+			   			set(layer[bntnextdown].visible,true);
+						set(layer[bntnextup].visible,false);"
+
+		/>
+		<layer name="bntnextdown"
+
+			   url="../pano_bilder/closeicon.png"
+			   height="25"
+			   width="25"
+			   visible="false"
+			   align="righttop"
+			   onhover="showtext(Nextdown);"
+			   onclick="showtext(Next);
+						set(layer[mainscreen].width,1000);
+			   			set(layer[bntnext].align,righttop);
+			   			set(layer[bntnextup].visible,true);
+			   			set(layer[bntnextdown].visible,false);
+						btnstragemainscrenn();"
+
+		/>
+	</layer>
+<!--set(layer[mainscreen].height,600);-->
+
+	<action name="btnstragemainscrenn">
+		set(heightmenubar, layer[menuscreen].height);
+		set(heightmainscreen, layer[mainscreen].height)
+
+		if(heightmenubar == 70
+			,set(layer[mainscreen].height,470);
+			,set(layer[mainscreen].height,600);
+		);
+
+	</action>
+	<data name="htmltext">
+		<h1>Where does it come from?</h1>
+		Contrary to popular belief, Lorem Ipsum is not simply random text.
+		It has roots in a piece of classical Latin literature from 45 BC,
+		making it over 2000 years old. Richard McClintock, a Latin professor
+		at Hampden-Sydney College in Virginia, looked up one of the more
+		obscure Latin words, consectetur, from a Lorem Ipsum passage, and
+		going through the cites of the word in classical literature, discovered
+		the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and
+		1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and
+		Evil) by Cicero, written in 45 BC. This book is a treatise on the theory
+		of ethics, very popular during the Renaissance. The first line of Lorem
+		Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+
+		The standard chunk of Lorem Ipsum used since the 1500s is reproduced below
+		for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum
+		et Malorum" by Cicero are also reproduced in their exact original form,
+		accompanied by English versions from the 1914 translation by H. Rackham.
+
+		<h1>Where can I get some?</h1>
+		There are many variations of passages of Lorem Ipsum available, but the
+		majority have suffered alteration in some form, by injected humour, or
+		randomised words which don't look even slightly believable. If you are
+		going to use a passage of Lorem Ipsum, you need to be sure there isn't
+		anything embarrassing hidden in the middle of text. All the Lorem Ipsum
+		generators on the Internet tend to repeat predefined chunks as necessary,
+		making this the first true generator on the Internet. It uses a dictionary
+		of over 200 Latin words, combined with a handful of model sentence structures,
+		to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum
+		is therefore always free from repetition, injected humour, or non-characteristic
+		words etc.
+		<a href="https://www.google.com/" target="_blank">link</a>
+
+	</data>
+
+	<data name="cssstyle">
+		font-size:14px;
+		fon-family:Arial;
+		color:#ff0011;
+	</data>
+
+
+
+
+	<plugin name="mytext"
+			type="text"
+			html="[h1]-----------Willkommen- [p]you can connect data here"
+			visible="true"
+			alpha="0.3"
+			zorder="2"
+			width="250"
+			height="470"
+			y="150"
+			x="0"
+	/>
+	<plugin name="run"
+			url="../pano_bilder/closeicon.png"
+			width="40"
+			height="40"
+			zorder="2"
+			visible="true"
+			x="54"
+			y="147"
+			onclick="set(plugin[run].visible,false);set(plugin[run2].visible,true);mytext();decrementtext();"
+
+	/>
+	<plugin name="run2"
+			url="../pano_bilder/openicon.png"
+			width="40"
+			height="40"
+			zorder="2"
+			x="-6"
+			y="147"
+			onclick="set(plugin[run].visible,true);set(plugin[run2].visible,false);incrementtext();"
+
+	/>
+
+	<action name="decrementtext" type="Javascript"><![CDATA[
+		function myMove(){
+			var pos = 0;
+			var id = setInterval(frame, 1);
+
+			function frame(){
+				if(pos == -250){
+					clearInterval(id);
+				}else{
+					pos -= 0.5;
+					krpano.set('plugin[mytext].x',pos);
+					krpano.set('plugin[run].alpha',pos);
+
+				}
+			}
+		}
+    	myMove();
+    ]]></action>
+	<action name="incrementtext" type="Javascript"><![CDATA[
+		function myMove(){
+			var pos = -250;
+			var id = setInterval(frame, 1);
+
+			function frame(){
+				if(pos == 0){
+					clearInterval(id);
+				}else{
+					pos += 0.5;
+					krpano.set('plugin[mytext].x',pos);
+					krpano.set('plugin[run2].alpha',pos);
+
+				}
+			}
+		}
+    	myMove();
+    	function myMove2(){
+			var pos = 0;
+			var id = setInterval(frame, 1);
+
+			function frame(){
+				if(pos == 1){
+					clearInterval(id);
+				}else{
+					pos += 0.003;
+					krpano.set('plugin[run].alpha',pos);
+
+				}
+			}
+		}
+    	myMove2();
+    ]]></action>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<hotspot name="im2"
+			 type="image"
+			 keep="true"
+			 url="../pano_bilder/ring.png"
+			 height="850"
+			 width="850"
+			 distorted="true"
+			 zorder="3"
+			 children="im1"
+			 onclick="message();message1();"
+			 onhover="showtext(get(ath));"
+	/>-->
+
+</krpano>
