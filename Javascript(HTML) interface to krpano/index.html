@@ -1,0 +1,211 @@
+﻿ <!DOCTYPE html>
+<html>
+<head>
+	<title>krpano</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta http-equiv="x-ua-compatible" content="IE=edge" />
+	<style>
+		html { height:100%; }
+		body { height:100%; overflow:hidden; margin:0; padding:0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#FFFFFF; background-color:#000000; }
+
+	</style>
+
+</head>
+<body>
+
+<!--var bnt = document.createElement('input');
+			bnt.style.height = "60px";
+			bnt.style.width = "60px";
+			bnt.type = "button";
+			bnt.value = "down";
+			bnt.style.position = "relative";
+			bnt.style.border = "2px solid #AAAAAA";
+			bnt.style.background = "#EEEEEE"
+			document.body.appendChild(bnt);
+-->
+
+
+
+
+<script src="krpano.js"></script>
+
+<div id="pano" style="width:100%;height:80%;">
+	<noscript><table style="width:100%;height:100%;"><tr style="vertical-align:middle;text-align:center;"><td>ERROR:<br><br>Javascript not activated<br><br></td></tr></table></noscript>
+
+
+
+
+	<script>
+		var name = "Matheo"
+		function krpano_onready_callback(krpano_interface)
+		{
+			krpano = krpano_interface;
+		}
+
+		function startgame()
+		{
+			krpano.set('layer[img].visible',true);
+		}
+
+		function endgame()
+		{
+			krpano.set('layer[img].visible',false);
+			krpano.set('layer[img].x',0);
+			krpano.set('layer[img].y',0);
+
+		}
+
+
+		function direction_right(){
+			var a = krpano.get('layer[img].x');
+
+			if(krpano.get('plugin[default].width') >= a){
+				a = parseInt(a) + 10;
+				krpano.set('layer[img].x',a);
+			}else{
+				alert('dont allow more');
+			}
+		}
+
+		function direction_left(){
+			var pos_x = krpano.get('layer[img].x');
+
+			if(0 <= pos_x){
+				pos_x = parseInt(pos_x) - 10;
+				krpano.set('layer[img].x',pos_x);
+			}else{
+				//alert(pos_x);
+				alert('dont allow more2');
+			}
+
+
+		}
+
+
+		function direction_up(){
+
+			var pos_y = krpano.get('layer[img].y');
+			var pos_y_max = krpano.get('plugin[default].height');
+			result = (pos_y_max * 5)/ 100
+
+			pos_y_max = pos_y_max - result
+
+			if(pos_y_max < pos_y && pos_y > 0){
+				alert('dont allow more3',pos_y);
+			}else{
+				//alert('Up',pos_y);
+				pos_y = parseInt(pos_y) + 10;
+				krpano.set('layer[img].y',pos_y);
+			}
+
+		}
+
+		function direction_down(){
+			var pos_y = krpano.get('layer[img].y');
+			var pos_y_max = krpano.get('plugin[default].height');
+			result = (pos_y_max * 20)/ 100
+			pos_y_max = pos_y_max - result
+
+			if(pos_y_max > pos_y && pos_y < 0){
+				alert('dont allow more3',pos_y);
+			}else{
+				//alert('Up',pos_y);
+				pos_y = parseInt(pos_y) - 10;
+				krpano.set('layer[img].y',pos_y);
+			}
+		}
+
+
+		function positionFood(){
+			krpano.get('layer[food].x');
+			krpano.get('layer[food].y');
+			var random_x = Math.floor(Math.random() * 900);
+			var random_y = Math.floor(Math.random() * 400);
+			krpano.set('layer[food].x',random_x);
+			krpano.set('layer[food].y',random_y);
+		}
+		var point = 0;
+		var rand = 0;
+		var pointneed = 5;
+		var speed = 20000;
+		function accessFood(){
+			var pos_img_x = krpano.get('layer[img].x');
+			var pos_img_y = krpano.get('layer[img].y');
+			var pos_food_x = krpano.get('layer[food].x')
+			var pos_food_y = krpano.get('layer[food].y')
+
+			if( (pos_img_x > pos_food_x -10 && pos_img_x < pos_food_x +10)){
+				//alert('access');
+				point += 1;
+				//alert(point);
+				positionFood();
+			}
+			if(point == pointneed){
+
+				pointneed += 5;
+				speed -= 1000;
+			}
+			krpano.set('layer[plate].html',point);
+
+		}
+
+		setInterval(function(){
+				positionFood();
+				point -= 2;
+			}, speed);
+
+
+
+
+
+
+		document.addEventListener("keydown", onKeyPressed);
+
+		function onKeyPressed(e) {
+			accessFood();
+			var keyCode = e.keyCode;
+			var key = e.key;
+			//alert('Key Code: ' + keyCode + ' Key: ' + key);
+
+			if(keyCode == 38){
+				direction_down();
+			}else if(keyCode == 39){
+				direction_right();
+			}else if(keyCode == 40){
+				direction_up();
+			}else if(keyCode == 37){
+				direction_left();
+			}else if(keyCode == 83){
+				startgame();
+			}else if(keyCode == 81){
+				endgame();
+			}
+		}
+
+
+
+		embedpano({swf:"krpano.swf", xml:"pano_xml/main.xml",id:"krpanoSWFObject",
+				consolelog:true, target:"pano", html5:"auto", mobilescale:1.0,
+				onready: krpano_onready_callback, passQueryParameters:true});
+	</script>
+</div>
+
+
+
+<input type="button" value="press" onclick="printer();">
+
+<input type="button" value="Up" onclick="direction_down();">
+<input type="button" value="Down" onclick="direction_up();">
+<input type="button" value="Right" onclick="direction_right();">
+<input type="button" value="Left" onclick="direction_left();">
+<input type="button" value="Lefun" onclick="onKeyPressed();">
+
+
+
+
+
+</body>
+</html>
