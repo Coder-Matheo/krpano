@@ -16,19 +16,6 @@
 </head>
 <body>
 
-<!--var bnt = document.createElement('input');
-			bnt.style.height = "60px";
-			bnt.style.width = "60px";
-			bnt.type = "button";
-			bnt.value = "down";
-			bnt.style.position = "relative";
-			bnt.style.border = "2px solid #AAAAAA";
-			bnt.style.background = "#EEEEEE"
-			document.body.appendChild(bnt);
--->
-
-
-
 
 <script src="krpano.js"></script>
 
@@ -137,24 +124,42 @@
 			var pos_food_x = krpano.get('layer[food].x')
 			var pos_food_y = krpano.get('layer[food].y')
 
-			if( (pos_img_x > pos_food_x -10 && pos_img_x < pos_food_x +10)){
-				//alert('access');
-				point += 1;
-				//alert(point);
-				positionFood();
-			}
-			if(point == pointneed){
+			krpano.set('layer[plate2speed].html',speed);
 
+			for (var i = parseInt(pos_food_x)-20; i < parseInt(pos_food_x) +20; i++){
+				for (var j = parseInt(pos_food_y)-20; j < parseInt(pos_food_y) +20; j++){
+					if(pos_img_x == i){
+						if(pos_img_y == j){
+							point += 1;
+							positionFood();
+						}
+					}
+				}
+			}
+
+
+
+			if(point == pointneed){
 				pointneed += 5;
-				speed -= 1000;
+				speed -= 500;
+
 			}
 			krpano.set('layer[plate].html',point);
 
 		}
 
+		var losepoint = 0;
+		var lose = 5;
 		setInterval(function(){
 				positionFood();
 				point -= 2;
+				losepoint += 2;
+				krpano.set('layer[plate2lose].html',losepoint);
+
+				if(lose == losepoint){
+					speed += 500;
+					krpano.set('layer[plate2speed].html',speed);			//Speed Problem
+				}
 			}, speed);
 
 
